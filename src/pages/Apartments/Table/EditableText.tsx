@@ -1,53 +1,37 @@
 import { Flex, Input } from 'antd'
-import { useCallback } from 'react'
+import { memo, useCallback } from 'react'
 
 type EditableTextProps = {
   value: string | number
   onChange: (value: string | number) => void
+  isNumber?: boolean
+  hideOnZero?: boolean
 }
 
-const EditableText = ({ value, onChange }: EditableTextProps) => {
-  // const [editing, setEditing] = useState(!value)
-
-  // console.log('log! adding editbale text', { value, editing })
-
-  // const handleEnableEditing = useCallback(() => {
-  //   setEditing(true)
-  // }, [])
-
-  // const handleDisableEditing = useCallback(() => {
-  //   setEditing(false)
-  // }, [])
-
+const EditableText = ({
+  value,
+  onChange,
+  isNumber = false,
+  hideOnZero = true
+}: EditableTextProps) => {
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(e.target.value)
-      // setEditing(false)
+      onChange(isNumber ? Number(e.target.value) : e.target.value)
     },
     [onChange]
   )
 
   return (
     <Flex className="w-full justify-between gap-2">
-      {/* {!editing && value && (
-        <Typography.Paragraph
-          className="w-100 inline-block"
-          onMouseOver={handleEnableEditing}
-        >
-          {value}
-        </Typography.Paragraph>
-      )} */}
-      {/* {editing && ( */}
       <Input
-        value={value}
+        value={hideOnZero && value === 0 ? 'Empty' : value}
         onChange={handleChange}
-        // onPressEnter={handleDisableEditing}
+        type={isNumber ? 'number' : 'text'}
         placeholder="Empty"
         className="whitespace-nowrap border-none outline-none"
       />
-      {/* )} */}
     </Flex>
   )
 }
 
-export default EditableText
+export default memo(EditableText)

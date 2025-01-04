@@ -1,15 +1,20 @@
 import { faker } from '@faker-js/faker'
 import { useEffect } from 'react'
-import { TableDataType } from '..'
+import { TableDataType } from './useTableColumns'
 
 const createEmptyTableRow = (key: TableDataType['key']): TableDataType => ({
   key,
+  personalRating: 0,
   name: '',
+  link: '',
   location: '',
   sqFt: 0,
+  initialCost: 0,
   monthlyPrice: 0,
   parkingFee: 0,
-  link: ''
+  leaseTermLength: 0,
+  weeksFreeConcession: 0,
+  hasAC: false
 })
 
 export const useAddEmptyRow = (

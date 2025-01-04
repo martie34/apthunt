@@ -4,6 +4,7 @@ import React, { useCallback } from 'react'
 import useBudgetCombination, {
   useSpecificCombination
 } from 'state/budgetCombination'
+
 import CombinationInput, { InputType } from './CombinationInput'
 import Output from './Output'
 

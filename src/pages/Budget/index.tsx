@@ -6,7 +6,7 @@ import useBudgetCombination, {
 } from 'state/budgetCombination'
 import CombinationColumn from './CombinationColumn'
 import Storage from './Storage'
-;[]
+
 const AddCombinationComponent = () => {
   const { addCombination } = useBudgetCombination()
 
