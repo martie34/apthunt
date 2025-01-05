@@ -6,6 +6,10 @@ import formatNumber from 'utils/formatNumber'
 import EditableCheckbox from '../EditableCheckbox'
 import EditableLink from '../EditableLink'
 import EditableText from '../EditableText'
+import {
+  useDeleteApartment,
+  useUpdateApartment
+} from './../../../../state/apartmentsState'
 
 export type TableDataType = {
   key: string
@@ -59,36 +63,32 @@ enum SortType {
   BOOLEAN = 'BOOLEAN'
 }
 
-export const useTableColumns = (
-  setData: React.Dispatch<React.SetStateAction<TableDataType[]>>
-) => {
+export const useTableColumns = () => {
+  const updateApartment = useUpdateApartment()
+
   const handleColumnChange = useCallback(
     (
       value: string | number | boolean,
       key: TableDataType['key'],
       dataIndex: string
     ) => {
-      setData((prevData) => {
-        return prevData.map((record) => {
-          if (record.key === key) {
-            return { ...record, [dataIndex]: value }
-          }
-          return record
-        })
-      })
+      updateApartment(key, { [dataIndex]: value })
     },
-    []
+    [updateApartment]
   )
 
-  const handleDeleteRow = useCallback((key: TableDataType['key']) => {
-    setData((prevData) => {
-      return prevData.filter((record) => record.key !== key)
-    })
-  }, [])
+  const deleteApartment = useDeleteApartment()
+
+  const handleDeleteRow = useCallback(
+    (key: TableDataType['key']) => {
+      deleteApartment(key)
+    },
+    [deleteApartment]
+  )
 
   const renderEditableText = useCallback(
     (
-      _: any,
+      _: unknown,
       record: TableDataType,
       valueAccess: keyof Omit<TableDataType, 'hasAC'>
     ) => {
@@ -103,7 +103,7 @@ export const useTableColumns = (
         />
       )
     },
-    []
+    [handleColumnChange]
   )
 
   const generateColumn = useCallback(
@@ -113,6 +113,7 @@ export const useTableColumns = (
       sortType?: SortType,
       renderCustomType?: RenderCustomType
     ): ColumnGroupType<TableDataType> | ColumnType<TableDataType> => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let sorterFunc: ((a: any, b: any) => number) | undefined = undefined
 
       if (sortType === SortType.NUMBER) sorterFunc = numberSort
@@ -126,12 +127,14 @@ export const useTableColumns = (
         shouldCellUpdate: (curRecord, prevRecord) =>
           curRecord[dataIndex] !== prevRecord[dataIndex],
         sorter: sorterFunc
-          ? (a, b) => sorterFunc?.(a[dataIndex], b[dataIndex]) as any
+          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (a, b) => sorterFunc?.(a[dataIndex], b[dataIndex]) as any
           : undefined,
 
         render: (_, record) => {
           switch (renderCustomType) {
             case RenderCustomType.TEXT:
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               return renderEditableText(_, record, dataIndex as any)
             case RenderCustomType.LINK:
               return (
@@ -157,7 +160,7 @@ export const useTableColumns = (
         }
       }
     },
-    []
+    [handleColumnChange, renderEditableText]
   )
 
   const columns: TableColumnsType<TableDataType> = useMemo(
@@ -182,7 +185,8 @@ export const useTableColumns = (
         )
       },
       {
-        ...generateColumn('Link', 'link', undefined, RenderCustomType.LINK)
+        ...generateColumn('Link', 'link', undefined, RenderCustomType.LINK),
+        width: '8%'
       },
       {
         ...generateColumn(
@@ -279,9 +283,9 @@ export const useTableColumns = (
           )
 
           return (
-            <Typography.Paragraph>
+            <Typography.Title level={4} style={{ margin: 0 }}>
               {isNaN(monthlyPrice) ? '' : formatNumber(monthlyPrice)}
-            </Typography.Paragraph>
+            </Typography.Title>
           )
         }
       },
@@ -307,7 +311,7 @@ export const useTableColumns = (
         )
       }
     ],
-    []
+    [generateColumn, handleDeleteRow]
   )
 
   return columns

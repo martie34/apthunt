@@ -1,20 +1,32 @@
 import { Menu } from 'antd'
+import { ItemType, MenuItemType } from 'antd/es/menu/interface'
 import { useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { To, useNavigate } from 'react-router-dom'
 
 const NavBar = () => {
   const navigate = useNavigate()
 
-  const menuItems = [
-    { label: 'Budgets', key: '/' },
-    { label: 'Apartments', key: '/apartments' }
+  const menuItems: ItemType<MenuItemType>[] = [
+    { label: 'Budgets', key: '/', className: 'p-4' },
+    { label: 'Apartments', key: '/apartments', className: 'p-4' }
   ]
 
-  const handleClick = useCallback((e: any) => {
-    navigate(e.key)
-  }, [])
+  const handleClick = useCallback(
+    (e: { key: To }) => {
+      if (e) navigate(e.key)
+    },
+    [navigate]
+  )
 
-  return <Menu mode="horizontal" items={menuItems} onClick={handleClick}></Menu>
+  return (
+    <Menu
+      className="text-xl"
+      mode="horizontal"
+      items={menuItems}
+      onClick={handleClick}
+      selectedKeys={[window.location.pathname]}
+    />
+  )
 }
 
 export default NavBar

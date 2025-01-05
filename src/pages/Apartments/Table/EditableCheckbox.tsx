@@ -9,7 +9,7 @@ type EditableCheckboxProps = {
 const EditableCheckbox = ({ value, onChange }: EditableCheckboxProps) => {
   return (
     <Checkbox
-      value={value}
+      checked={value}
       type="checkbox"
       onChange={(e) => onChange(e.target.value)}
       className="whitespace-nowrap border-none outline-none"

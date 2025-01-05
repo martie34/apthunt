@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { useEffect } from 'react'
+import { useAddApartment } from 'state/apartmentsState'
 import { TableDataType } from './useTableColumns'
 
 const createFakeTableRow = (key: TableDataType['key']): TableDataType => ({
@@ -17,19 +18,16 @@ const createFakeTableRow = (key: TableDataType['key']): TableDataType => ({
   hasAC: faker.datatype.boolean()
 })
 
-export const useAddFakeData = (
-  data: TableDataType[],
-  setData: React.Dispatch<React.SetStateAction<TableDataType[]>>
-) => {
+export const useAddFakeData = (data: TableDataType[]) => {
+  const addApartment = useAddApartment()
+
   useEffect(() => {
     if (data.length == 0) {
-      const fakeData = Array.from({ length: 20 }, (_, i) => {
-        console.log('log! creating fake data at index', i + 1)
+      const fakeData = Array.from({ length: 20 }, () => {
         return createFakeTableRow(faker.string.uuid())
       })
 
-      console.log('log! adding fake data', fakeData)
-      setData(fakeData)
+      addApartment(fakeData)
     }
-  }, [data.length])
+  }, [addApartment, data.length])
 }

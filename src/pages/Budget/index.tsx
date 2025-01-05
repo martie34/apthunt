@@ -5,7 +5,6 @@ import useBudgetCombination, {
   useCombinationCount
 } from 'state/budgetCombination'
 import CombinationColumn from './CombinationColumn'
-import Storage from './Storage'
 
 const AddCombinationComponent = () => {
   const { addCombination } = useBudgetCombination()
@@ -21,7 +20,7 @@ const Budget = () => {
   const combinationCount = useCombinationCount()
 
   return (
-    <>
+    <div className="my-4 p-4">
       <Title level={2}>Constants</Title>
       <Constants />
       <Title level={2}>Budget Combinations</Title>
@@ -34,9 +33,8 @@ const Budget = () => {
       <Title level={2}>Settings</Title>
       <Flex gap="20px" className="justify-center">
         <AddCombinationComponent />
-        <Storage />
       </Flex>
-    </>
+    </div>
   )
 }
 

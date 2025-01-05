@@ -1,12 +1,10 @@
-import { Typography } from 'antd'
 import ApartmentTable from './Table'
 
 const Apartments = () => {
   return (
-    <>
-      <Typography.Title>Apartments</Typography.Title>
+    <div className="my-4 p-4">
       <ApartmentTable />
-    </>
+    </div>
   )
 }
 

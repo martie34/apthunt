@@ -1,6 +1,6 @@
 import { COMBINATION_STORAGE_KEY } from 'consts'
 import { create } from 'zustand'
-import { combine } from 'zustand/middleware'
+import { combine, persist } from 'zustand/middleware'
 import { useShallow } from 'zustand/shallow'
 
 export type Combination = {
@@ -23,55 +23,34 @@ const baseCombination: Combination = {
   weeklyPaidMeals: 5
 }
 
-const getInitialCombinations = (): Combination[] => {
-  try {
-    const savedCombinations = JSON.parse(
-      localStorage.getItem(COMBINATION_STORAGE_KEY) || '[]'
-    )
-    if (savedCombinations.length === 0) {
-      localStorage.setItem(
-        COMBINATION_STORAGE_KEY,
-        JSON.stringify([baseCombination])
-      )
-      console.log('log! returning base')
-      return [baseCombination]
-    }
-
-    console.log('log! returning saved')
-    return [...savedCombinations]
-  } catch (e) {
-    console.error('Error loading combinations from local storage', e)
-    localStorage.removeItem(COMBINATION_STORAGE_KEY)
-    console.log('log! returning base')
-    return [baseCombination]
-  }
-}
-
 const useBudgetCombination = create(
-  combine({ combinations: getInitialCombinations() }, (set) => ({
-    setCombinations: (combinations: Combination[]) => set({ combinations }),
-    updateCombination: (index: number, updatedFields: Partial<Combination>) =>
-      set(({ combinations }) => {
-        const newCombinations = [...combinations]
-        newCombinations[index] = {
-          ...newCombinations[index],
-          ...updatedFields
-        }
-        return { combinations: newCombinations }
-      }),
-    addCombination: () =>
-      set((state) => {
-        return {
-          combinations: [...state.combinations, baseCombination]
-        }
-      }),
-    deleteCombination: (index: number) =>
-      set((state) => {
-        const newCombinations = [...state.combinations]
-        newCombinations.splice(index, 1)
-        return { combinations: newCombinations }
-      })
-  }))
+  persist(
+    combine({ combinations: [baseCombination] }, (set) => ({
+      setCombinations: (combinations: Combination[]) => set({ combinations }),
+      updateCombination: (index: number, updatedFields: Partial<Combination>) =>
+        set(({ combinations }) => {
+          const newCombinations = [...combinations]
+          newCombinations[index] = {
+            ...newCombinations[index],
+            ...updatedFields
+          }
+          return { combinations: newCombinations }
+        }),
+      addCombination: () =>
+        set((state) => {
+          return {
+            combinations: [...state.combinations, baseCombination]
+          }
+        }),
+      deleteCombination: (index: number) =>
+        set((state) => {
+          const newCombinations = [...state.combinations]
+          newCombinations.splice(index, 1)
+          return { combinations: newCombinations }
+        })
+    })),
+    { name: COMBINATION_STORAGE_KEY }
+  )
 )
 
 export default useBudgetCombination

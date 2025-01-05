@@ -5,58 +5,46 @@ and I need a new apartment.
 
 ### Install
 
-Create the project.
-
-```bash
-pnpm dlx degit joaopaulomoraes/reactjs-vite-tailwindcss-boilerplate my-app
-```
-
-Access the project directory.
-
-```bash
-cd my-app
-```
-
 Install dependencies.
 
 ```bash
-pnpm install
+bun install
 ```
 
 Serve with hot reload at <http://localhost:5173>.
 
 ```bash
-pnpm run dev
+bun dev
 ```
 
 ### Lint
 
 ```bash
-pnpm run lint
+bun lint
 ```
 
 ### Typecheck
 
 ```bash
-pnpm run typecheck
+bun typecheck
 ```
 
 ### Build
 
 ```bash
-pnpm run build
+bun build
 ```
 
 ### Test
 
 ```bash
-pnpm run test
+bun test
 ```
 
 View and interact with your tests via UI.
 
 ```bash
-pnpm run test:ui
+bun test:ui
 ```
 
 ## License

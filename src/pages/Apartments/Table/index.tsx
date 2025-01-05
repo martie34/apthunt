@@ -1,18 +1,17 @@
 import { Table } from 'antd'
-import { useState } from 'react'
+import { useApartments } from 'state/apartmentsState'
 import { useAddEmptyRow } from './hooks/useAddEmptyRow'
-import { useAddFakeData } from './hooks/useAddFakeData'
-import { TableDataType, useTableColumns } from './hooks/useTableColumns'
+import { useTableColumns } from './hooks/useTableColumns'
 
 const ApartmentTable = () => {
-  const [data, setData] = useState<TableDataType[]>([])
+  const apartments = useApartments()
 
-  useAddFakeData(data, setData)
-  useAddEmptyRow(data, setData)
+  // useAddFakeData(apartments)
+  useAddEmptyRow(apartments)
 
-  const columns = useTableColumns(setData)
+  const columns = useTableColumns()
 
-  return <Table dataSource={data} columns={columns} pagination={false} />
+  return <Table dataSource={apartments} columns={columns} pagination={false} />
 }
 
 export default ApartmentTable
