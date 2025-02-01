@@ -13,13 +13,14 @@ import EditableText from './EditableText'
 
 export interface BaseRow<T, K extends keyof T = keyof T> {
   key: string
-  dataType: RenderCustomType
+  dataType?: RenderCustomType
   label: string
   dataIndex?: K
   render?: (value: T[K], record: T) => JSX.Element
   sortable: boolean
-  customSortType?: SortType
+  sorter?: (a: any, b: any) => number
   width?: string
+  className?: string
 }
 
 type CreateTableColumnsHelperProps<T, R extends BaseRow<T>> = {
@@ -94,18 +95,13 @@ export const useTableColumnsHelper = <
     }
   }
 
-  const getSorterFunc = (
-    dataType: RenderCustomType,
-    sortable: boolean,
-    customSortType?: SortType
-  ) => {
+  const getSorterFunc = (dataType: RenderCustomType, sortable: boolean) => {
     const sortType =
-      customSortType ||
-      (dataType === RenderCustomType.CHECKBOX
+      dataType === RenderCustomType.CHECKBOX
         ? SortType.BOOLEAN
         : dataType === RenderCustomType.TEXT
           ? SortType.STRING
-          : SortType.NUMBER)
+          : SortType.NUMBER
 
     let sorterFunc: ((a: any, b: any) => number) | undefined = undefined
 
@@ -122,8 +118,9 @@ export const useTableColumnsHelper = <
         dataType,
         label,
         sortable,
-        customSortType,
+        sorter,
         dataIndex,
+        render,
         ...extraProps
       } = row
 
@@ -132,8 +129,10 @@ export const useTableColumnsHelper = <
         key: row.key,
         dataIndex: dataIndex,
         title: label,
-        sorter: getSorterFunc(dataType, sortable, customSortType),
-        render: (value: any, record: T) => renderCell(value, record, row)
+        sorter: sorter ?? (dataType && getSorterFunc(dataType, sortable)),
+        render: render
+          ? render
+          : (value: any, record: T) => renderCell(value, record, row)
       }
     })
   }, [exampleRows])
@@ -163,7 +162,8 @@ export const useAutoAddEmptyRow = <
         const copyDataRow = { ...dataRow, key: '' }
         const values = Object.values(copyDataRow)
         return values.every(
-          (value) => value === '' || value === undefined || value === null
+          (value: string | number) =>
+            value === '' || value === undefined || value === null || value === 0
         )
       })
 

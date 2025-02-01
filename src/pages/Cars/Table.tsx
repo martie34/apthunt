@@ -60,8 +60,9 @@ const EXAMPLE_ROWS: BaseRow<CarData>[] = [
   {
     key: '7',
     dataType: RenderCustomType.DELETE,
-    label: 'Delete',
-    sortable: false
+    label: 'RM',
+    sortable: false,
+    width: '10px'
   }
 ]
 

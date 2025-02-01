@@ -45,32 +45,8 @@ const useCarState = create(
   )
 )
 
-export default useCarState
-
 export const useCars = () => {
   return useCarState(useShallow((state) => state.cars))
-}
-
-export const useCar = (key: string) => {
-  return useCarState(
-    useShallow((state) => state.cars.find((car) => car.key === key))
-  )
-}
-
-export const useCarActions = () => {
-  return useCarState(
-    useShallow((state) => ({
-      setCars: state.setCars,
-      updateCar: state.updateCar,
-      addCar: state.addCar,
-      deleteCar: state.deleteCar
-    }))
-  )
-}
-
-export const useSetCars = () => {
-  const { setCars } = useCarState()
-  return setCars
 }
 
 export const useAddCar = () => {

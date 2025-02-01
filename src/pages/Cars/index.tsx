@@ -1,4 +1,4 @@
-import { CarsTable } from './carsTable'
+import { CarsTable } from './Table'
 
 const Cars = () => {
   return (

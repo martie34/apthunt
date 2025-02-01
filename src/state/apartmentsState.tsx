@@ -57,23 +57,8 @@ const useApartmentState = create(
   )
 )
 
-export default useApartmentState
-
 export const useApartments = () => {
   return useApartmentState(useShallow((state) => state.apartments))
-}
-
-export const useApartment = (key: string) => {
-  return useApartmentState(
-    useShallow((state) =>
-      state.apartments.find((apartment) => apartment.key === key)
-    )
-  )
-}
-
-export const useSetApartments = () => {
-  const { setApartments } = useApartmentState()
-  return setApartments
 }
 
 export const useUpdateApartment = () => {
