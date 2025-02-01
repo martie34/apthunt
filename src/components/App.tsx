@@ -3,7 +3,7 @@ import Apartments from 'pages/Apartments'
 import Budget from 'pages/Budget'
 import CarsPage from 'pages/Cars'
 import GasPage from 'pages/Gas'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import { useLoadLocalStorage } from '../hooks/useLoadLocalStorage'
 import '../styles.css'
 import NavBar from './NavBar'
@@ -16,7 +16,7 @@ function App() {
   return (
     <ConfigProvider theme={{ algorithm: darkAlgorithm }}>
       <div className="mx-auto max-w-[60%]">
-        <BrowserRouter>
+        <HashRouter>
           <NavBar />
           <Routes>
             <Route path="/" element={<Budget />} />
@@ -24,7 +24,7 @@ function App() {
             <Route path="/cars" element={<CarsPage />} />
             <Route path="/gas" element={<GasPage />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </div>
     </ConfigProvider>
   )
