@@ -10,7 +10,7 @@ export type CarData = {
   trim: string
   price: number
   link: string
-  zeroToSixty: number
+  zeroToSixty: string
 }
 
 const useCarState = create(

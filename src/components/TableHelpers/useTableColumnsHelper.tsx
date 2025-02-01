@@ -152,7 +152,6 @@ export const useAutoAddEmptyRow = <
 
   useEffect(() => {
     const checkForEmptyRow = () => {
-      if (data.length > 5) return
       if (data.length === 0) {
         setNeedsEmptyRow(true) // Case 1: Data is empty
         return
@@ -161,6 +160,8 @@ export const useAutoAddEmptyRow = <
       const hasEmptyRow = data.some((dataRow) => {
         const copyDataRow = { ...dataRow, key: '' }
         const values = Object.values(copyDataRow)
+
+        // console.log('log!', { copyDataRow, values })
         return values.every(
           (value: string | number) =>
             value === '' || value === undefined || value === null || value === 0

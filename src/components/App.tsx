@@ -15,7 +15,7 @@ function App() {
 
   return (
     <ConfigProvider theme={{ algorithm: darkAlgorithm }}>
-      <div className="mx-auto max-w-screen-2xl">
+      <div className="mx-auto max-w-[60%]">
         <BrowserRouter>
           <NavBar />
           <Routes>

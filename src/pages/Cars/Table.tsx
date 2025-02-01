@@ -52,7 +52,7 @@ const EXAMPLE_ROWS: BaseRow<CarData>[] = [
   },
   {
     key: '6',
-    dataType: RenderCustomType.NUMBER,
+    dataType: RenderCustomType.TEXT,
     label: '0-60',
     dataIndex: 'zeroToSixty',
     sortable: true

@@ -20,6 +20,7 @@ const COLUMN_TEMPLATE: BaseRow<ApartmentData>[] = [
     dataType: RenderCustomType.NUMBER,
     label: 'Personal Rating',
     dataIndex: 'personalRating',
+    width: '10px',
     sortable: true
   },
   {
@@ -34,6 +35,7 @@ const COLUMN_TEMPLATE: BaseRow<ApartmentData>[] = [
     dataType: RenderCustomType.LINK,
     label: 'Link',
     dataIndex: 'link',
+    width: '6%',
     sortable: false
   },
   {
@@ -48,6 +50,7 @@ const COLUMN_TEMPLATE: BaseRow<ApartmentData>[] = [
     dataType: RenderCustomType.NUMBER,
     label: 'Sq Ft',
     dataIndex: 'sqFt',
+    width: '7%',
     sortable: true
   },
   {
@@ -55,35 +58,40 @@ const COLUMN_TEMPLATE: BaseRow<ApartmentData>[] = [
     dataType: RenderCustomType.NUMBER,
     label: 'Initial Cost',
     dataIndex: 'initialCost',
-    sortable: true
+    sortable: true,
+    width: '7%'
   },
   {
     key: '7',
     dataType: RenderCustomType.NUMBER,
     label: 'Monthly Price',
     dataIndex: 'monthlyPrice',
-    sortable: true
+    sortable: true,
+    width: '10px'
   },
   {
     key: '8',
     dataType: RenderCustomType.NUMBER,
     label: 'Parking Fee',
     dataIndex: 'parkingFee',
-    sortable: true
+    sortable: true,
+    width: '10px'
   },
   {
     key: '9',
     dataType: RenderCustomType.NUMBER,
     label: 'Lease Term Length',
     dataIndex: 'leaseTermLength',
-    sortable: true
+    sortable: true,
+    width: '10px'
   },
   {
     key: '10',
     dataType: RenderCustomType.NUMBER,
     label: 'Weeks Free Concession',
     dataIndex: 'weeksFreeConcession',
-    sortable: true
+    sortable: true,
+    width: '10px'
   },
   {
     key: '10',
@@ -131,14 +139,25 @@ const COLUMN_TEMPLATE: BaseRow<ApartmentData>[] = [
     label: 'AC',
     dataIndex: 'hasAC',
     width: '10px',
+    className: 'text-center',
     sortable: true
+  },
+  // contacted
+  {
+    key: '12',
+    dataType: RenderCustomType.CHECKBOX,
+    label: 'Contacted',
+    dataIndex: 'contacted',
+    className: 'text-center',
+    sortable: true,
+    width: '10px'
   },
   {
     label: 'RM',
     key: 'RM',
-    width: '10px',
     dataType: RenderCustomType.DELETE,
-    sortable: false
+    sortable: false,
+    width: '10px'
   }
 ]
 

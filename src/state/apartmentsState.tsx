@@ -15,6 +15,7 @@ export type ApartmentData = {
   parkingFee: number
   leaseTermLength: number
   weeksFreeConcession: number
+  contacted: boolean
   hasAC: boolean
 }
 
