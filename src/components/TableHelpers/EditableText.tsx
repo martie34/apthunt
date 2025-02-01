@@ -18,7 +18,7 @@ const EditableText = ({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange(isNumber ? Number(e.target.value) : e.target.value)
     },
-    [onChange]
+    [isNumber, onChange]
   )
 
   return (

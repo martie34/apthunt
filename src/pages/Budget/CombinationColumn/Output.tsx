@@ -44,6 +44,11 @@ const Output = ({ combination }: OutputProps) => {
           <Paragraph className="text-xl">
             Yearly cost: ${formatNumber(monthlyCost * 12)}
           </Paragraph>
+          {/* Apartment monthly cost (sum of only apartment fees, rent + parking fee) */}
+          <Paragraph className="text-xl">
+            Apt monthly cost: $
+            {formatNumber(combination.rent + combination.parkingFee)}
+          </Paragraph>
         </>
       }
     >

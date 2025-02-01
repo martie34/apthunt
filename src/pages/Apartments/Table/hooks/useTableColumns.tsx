@@ -1,11 +1,18 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import { TableColumnsType, Typography } from 'antd'
 import { ColumnGroupType, ColumnType } from 'antd/es/table'
+import EditableCheckbox from 'components/TableHelpers/EditableCheckbox'
+import EditableLink from 'components/TableHelpers/EditableLink'
+import EditableText from 'components/TableHelpers/EditableText'
+import {
+  RenderCustomType,
+  SortType,
+  booleanSort,
+  numberSort,
+  stringSort
+} from 'consts'
 import { useCallback, useMemo } from 'react'
 import formatNumber from 'utils/formatNumber'
-import EditableCheckbox from '../EditableCheckbox'
-import EditableLink from '../EditableLink'
-import EditableText from '../EditableText'
 import {
   useDeleteApartment,
   useUpdateApartment
@@ -40,27 +47,6 @@ const calculateMonthlyPrice = (
   const monthlyPrice = totalCostAfterConcession / numberOfMonths
 
   return monthlyPrice
-}
-
-enum RenderCustomType {
-  TEXT = 'TEXT',
-  LINK = 'LINK',
-  CHECKBOX = 'CHECKBOX'
-}
-
-// number sorter
-const numberSort = (a: number, b: number) => a - b
-
-// string sorter
-const stringSort = (a: string, b: string) => a.localeCompare(b)
-
-// boolean sorter
-const booleanSort = (a: boolean, b: boolean) => (a === b ? 0 : a ? 1 : -1)
-
-enum SortType {
-  NUMBER = 'NUMBER',
-  STRING = 'STRING',
-  BOOLEAN = 'BOOLEAN'
 }
 
 export const useTableColumns = () => {

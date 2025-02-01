@@ -8,7 +8,8 @@ const NavBar = () => {
 
   const menuItems: ItemType<MenuItemType>[] = [
     { label: 'Budgets', key: '/', className: 'p-4' },
-    { label: 'Apartments', key: '/apartments', className: 'p-4' }
+    { label: 'Apartments', key: '/apartments', className: 'p-4' },
+    { label: 'Cars', key: '/cars', className: 'p-4' }
   ]
 
   const handleClick = useCallback(

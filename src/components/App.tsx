@@ -1,6 +1,7 @@
 import { ConfigProvider, theme } from 'antd'
 import Apartments from 'pages/Apartments'
 import Budget from 'pages/Budget'
+import CarsPage from 'pages/Cars'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useLoadLocalStorage } from '../hooks/useLoadLocalStorage'
 import '../styles.css'
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Budget />} />
             <Route path="/apartments" element={<Apartments />} />
+            <Route path="/cars" element={<CarsPage />} />
           </Routes>
         </BrowserRouter>
       </div>

@@ -11,7 +11,7 @@ const EditableCheckbox = ({ value, onChange }: EditableCheckboxProps) => {
     <Checkbox
       checked={value}
       type="checkbox"
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => onChange(e.target.checked)}
       className="whitespace-nowrap border-none outline-none"
     />
   )
