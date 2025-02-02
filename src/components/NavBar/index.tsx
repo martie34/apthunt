@@ -1,10 +1,11 @@
 import { Menu } from 'antd'
 import { ItemType, MenuItemType } from 'antd/es/menu/interface'
 import { useCallback } from 'react'
-import { To, useNavigate } from 'react-router-dom'
+import { To, useLocation, useNavigate } from 'react-router-dom'
 
 const NavBar = () => {
   const navigate = useNavigate()
+  const location = useLocation()
 
   const menuItems: ItemType<MenuItemType>[] = [
     { label: 'Budgets', key: '/', className: 'p-4' },
@@ -26,7 +27,7 @@ const NavBar = () => {
       mode="horizontal"
       items={menuItems}
       onClick={handleClick}
-      selectedKeys={[window.location.pathname]}
+      selectedKeys={[location.pathname]}
     />
   )
 }

@@ -1,4 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons'
+import { clsx } from 'clsx'
 import {
   booleanSort,
   numberSort,
@@ -121,11 +122,17 @@ export const useTableColumnsHelper = <
         sorter,
         dataIndex,
         render,
+        className,
         ...extraProps
       } = row
 
       return {
         ...extraProps,
+        // apply text center if data type is checkbox
+        className: clsx(
+          className,
+          dataType === RenderCustomType.CHECKBOX && 'text-center'
+        ),
         key: row.key,
         dataIndex: dataIndex,
         title: label,
@@ -140,11 +147,7 @@ export const useTableColumnsHelper = <
   return returnedColumns
 }
 
-export const useAutoAddEmptyRow = <
-  T extends { key: string },
-  R extends BaseRow<T>
->(
-  exampleRow: R,
+export const useAutoAddEmptyRow = <T extends { key: string }>(
   addRow: (newRow: T) => void,
   data: T[]
 ) => {
@@ -176,38 +179,12 @@ export const useAutoAddEmptyRow = <
 
   useEffect(() => {
     if (needsEmptyRow) {
-      // 1. Create a *T* object (your data type)
       const newEmptyData: T = {} as T
 
-      type ExampleRowKeys = keyof R
-
-      // 2. Copy the relevant properties from exampleRow to newEmptyData
-      for (const key in exampleRow) {
-        if (
-          key in exampleRow &&
-          typeof exampleRow[key as ExampleRowKeys] !== 'function' &&
-          key !== 'key'
-        ) {
-          const typedExampleRow = exampleRow as unknown as R & {
-            [K in keyof R]: R[K]
-          }
-          const { dataIndex } = typedExampleRow
-
-          // 3. Assign to the correct property of newEmptyData
-          newEmptyData[dataIndex as keyof T] = (
-            typedExampleRow.dataType === RenderCustomType.NUMBER
-              ? 0
-              : typedExampleRow.dataType === RenderCustomType.CHECKBOX
-                ? false
-                : ''
-          ) as T[keyof T]
-        }
-      }
-
-      addRow({ ...newEmptyData, key: Date.now() }) // Now correctly passing a *T* object
+      addRow({ ...newEmptyData, key: Date.now() }) // Pass the empty row to the addRow function
       setNeedsEmptyRow(false)
     }
-  }, [needsEmptyRow, addRow, exampleRow])
+  }, [needsEmptyRow, addRow])
 
   return
 }

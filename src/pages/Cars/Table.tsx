@@ -12,6 +12,7 @@ import {
   useDeleteCar,
   useUpdateCar
 } from 'state/carsState'
+import CommuteCost from './CommuteCost'
 
 const EXAMPLE_ROWS: BaseRow<CarData>[] = [
   {
@@ -57,6 +58,39 @@ const EXAMPLE_ROWS: BaseRow<CarData>[] = [
     dataIndex: 'zeroToSixty',
     sortable: true
   },
+  // cityMPG
+  {
+    key: 'cityMPG',
+    dataType: RenderCustomType.NUMBER,
+    label: 'City MPG',
+    dataIndex: 'cityMPG',
+    sortable: true
+  },
+  // calculation based on some things
+  {
+    key: '7',
+    dataType: RenderCustomType.NUMBER,
+    label: 'Commute Cost',
+    sortable: false,
+    width: '10%',
+    render: (_, record) => <CommuteCost cityMPG={record.cityMPG} />
+  },
+  // awd
+  {
+    key: 'awd',
+    dataType: RenderCustomType.CHECKBOX,
+    label: 'AWD',
+    dataIndex: 'awd',
+    sortable: true
+  },
+  // heatedSeats
+  {
+    key: 'heatedSeats',
+    dataType: RenderCustomType.CHECKBOX,
+    label: 'Heated Seats',
+    dataIndex: 'heatedSeats',
+    sortable: true
+  },
   {
     key: '7',
     dataType: RenderCustomType.DELETE,
@@ -73,11 +107,7 @@ export const CarsTable = () => {
   const deleteRow = useDeleteCar()
   const addRow = useAddCar()
 
-  useAutoAddEmptyRow<CarData, BaseRow<CarData, keyof CarData>>(
-    EXAMPLE_ROWS[0],
-    addRow,
-    cars
-  )
+  useAutoAddEmptyRow<CarData>(addRow, cars)
 
   const columns = useTableColumnsHelper<
     CarData,

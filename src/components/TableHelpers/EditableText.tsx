@@ -1,4 +1,4 @@
-import { Flex, Input } from 'antd'
+import { Flex, Input, InputProps } from 'antd'
 import { memo, useCallback } from 'react'
 
 type EditableTextProps = {
@@ -6,13 +6,15 @@ type EditableTextProps = {
   onChange: (value: string | number) => void
   isNumber?: boolean
   hideOnZero?: boolean
+  extraProps?: InputProps
 }
 
 const EditableText = ({
   value,
   onChange,
   isNumber = false,
-  hideOnZero = true
+  hideOnZero = true,
+  extraProps
 }: EditableTextProps) => {
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +31,7 @@ const EditableText = ({
         type={isNumber ? 'number' : 'text'}
         placeholder="Empty"
         className="whitespace-nowrap border-none outline-none"
+        {...extraProps}
       />
     </Flex>
   )
