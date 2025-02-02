@@ -46,10 +46,10 @@ const useCarState = create(
             return { cars: newCars }
           }),
         setGasPrice: (gasPrice: number | string) =>
-          set({ gasPrice: parseInt(gasPrice.toString()) }),
+          set({ gasPrice: Number(gasPrice.toString()) }),
         setCommuteDistanceMiles: (commuteDistanceMiles: number | string) =>
           set({
-            commuteDistanceMiles: parseInt(commuteDistanceMiles.toString())
+            commuteDistanceMiles: Number(commuteDistanceMiles.toString())
           })
       })
     ),

@@ -107,11 +107,7 @@ export const CarsTable = () => {
   const deleteRow = useDeleteCar()
   const addRow = useAddCar()
 
-  useAutoAddEmptyRow<CarData, BaseRow<CarData, keyof CarData>>(
-    EXAMPLE_ROWS[0],
-    addRow,
-    cars
-  )
+  useAutoAddEmptyRow<CarData>(addRow, cars)
 
   const columns = useTableColumnsHelper<
     CarData,

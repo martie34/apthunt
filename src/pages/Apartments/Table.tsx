@@ -182,11 +182,7 @@ const ApartmentTable = () => {
   const deleteRow = useDeleteApartment()
   const addRow = useAddApartment()
 
-  useAutoAddEmptyRow<ApartmentData, BaseRow<ApartmentData>>(
-    COLUMN_TEMPLATE[0],
-    addRow,
-    apartments
-  )
+  useAutoAddEmptyRow<ApartmentData>(addRow, apartments)
 
   const columns = useTableColumnsHelper<ApartmentData, BaseRow<ApartmentData>>({
     updateState,
