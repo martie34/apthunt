@@ -139,7 +139,6 @@ const COLUMN_TEMPLATE: BaseRow<ApartmentData>[] = [
     label: 'AC',
     dataIndex: 'hasAC',
     width: '10px',
-    className: 'text-center',
     sortable: true
   },
   // contacted
@@ -148,7 +147,6 @@ const COLUMN_TEMPLATE: BaseRow<ApartmentData>[] = [
     dataType: RenderCustomType.CHECKBOX,
     label: 'Contacted',
     dataIndex: 'contacted',
-    className: 'text-center',
     sortable: true,
     width: '10px'
   },

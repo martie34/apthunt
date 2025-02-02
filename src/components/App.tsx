@@ -14,7 +14,15 @@ function App() {
   useLoadLocalStorage()
 
   return (
-    <ConfigProvider theme={{ algorithm: darkAlgorithm }}>
+    <ConfigProvider
+      theme={{
+        algorithm: darkAlgorithm,
+        token: {
+          colorBgContainerDisabled: undefined,
+          colorTextDisabled: 'white'
+        }
+      }}
+    >
       <div className="mx-auto max-w-[60%]">
         <HashRouter>
           <NavBar />

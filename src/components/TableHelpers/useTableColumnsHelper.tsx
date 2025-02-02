@@ -1,4 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons'
+import { clsx } from 'clsx'
 import {
   booleanSort,
   numberSort,
@@ -121,11 +122,17 @@ export const useTableColumnsHelper = <
         sorter,
         dataIndex,
         render,
+        className,
         ...extraProps
       } = row
 
       return {
         ...extraProps,
+        // apply text center if data type is checkbox
+        className: clsx(
+          className,
+          dataType === RenderCustomType.CHECKBOX && 'text-center'
+        ),
         key: row.key,
         dataIndex: dataIndex,
         title: label,
