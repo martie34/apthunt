@@ -94,7 +94,7 @@ const COLUMN_TEMPLATE: BaseRow<ApartmentData>[] = [
     width: '10px'
   },
   {
-    key: '10',
+    key: 'realMonthlyPrice',
     label: 'Real Monthly Price',
     width: '10px',
     sortable: true,

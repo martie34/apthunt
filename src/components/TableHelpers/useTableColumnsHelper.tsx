@@ -136,7 +136,15 @@ export const useTableColumnsHelper = <
         key: row.key,
         dataIndex: dataIndex,
         title: label,
-        sorter: sorter ?? (dataType && getSorterFunc(dataType, sortable)),
+        sorter: sorter
+          ? (a: any, b: any) => sorter(a, b)
+          : dataType
+            ? (a: any, b: any) =>
+                getSorterFunc(dataType, sortable)?.(
+                  a[dataIndex],
+                  b[dataIndex]
+                ) as any
+            : () => 0,
         render: render
           ? render
           : (value: any, record: T) => renderCell(value, record, row)
